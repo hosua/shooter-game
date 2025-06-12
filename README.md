@@ -1,5 +1,5 @@
 # shooter-game
 A generic shmup that I probably will never finish
 
-https://github.com/user-attachments/assets/c8a0cc35-18db-4c1b-a1b4-bbd5de00e574
+https://github.com/user-attachments/assets/b32340d4-546a-48aa-bedc-b3d8d048c776
 
