@@ -1,10 +1,12 @@
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 
 #include "enemy.hh"
 #include "SDL_render.h"
 #include "globals.hh"
 #include "graphics.hh"
+#include "sprite.hh"
 
 
 namespace gfx = Graphics;
@@ -38,10 +40,20 @@ void Enemy::update(float dt) {
     SDL_FRect world_rect = { _x, _y, _w, _h };
     const auto& [ex, ey] = get_rel_pos(world_rect);
     _hitbox = { ex + 8, ey + 12, _hitbox.w, _hitbox.h };
+    SDL_FRect player_world_rect = {
+        global_vars::player_pos.x,
+        global_vars::player_pos.y,
+        48,
+        60,
+    };
+    const float center_x = static_cast<float>(gfx::VIRTUAL_WIDTH) / 2, 
+        center_y = static_cast<float>(gfx::VIRTUAL_HEIGHT) / 2;
+    const float dy = ey - center_y, dx = ex - center_x;
+    _angle = atan2(dy, dx) * 180 / static_cast<float>(M_PI) - 90;
 }
 
 bool Enemy::check_collision_with_bullet(const Bullet& bullet) {
-    const bool res = check_collision(_hitbox, bullet._hitbox);
+    const bool res = check_collision(_hitbox, bullet._hitbox) && bullet._is_player_bullet;
     if (res) _is_alive = false;
     return res;
 }

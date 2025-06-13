@@ -10,6 +10,7 @@ bool global_vars::debug = true;
 float global_vars::volume = MIX_MAX_VOLUME;
 bool global_vars::volume_muted = false;
 bool global_vars::spawn_mode = false;
+SDL_FPoint global_vars::player_pos = { 0, 0 };
 
 SDL_Window* Global::window;
 SDL_Renderer* Global::renderer;
