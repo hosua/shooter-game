@@ -5,6 +5,7 @@
 
 #include "bullet.hh"
 #include "explosion.hh"
+#include "sprite.hh"
 
 class Player;
 class EnemyFactory;
@@ -22,6 +23,8 @@ class Enemy {
         void update(float dt);
         bool check_collision_with_bullet(const Bullet& bullet);
     private:
+        SDL_Texture* _texture;
+        std::unique_ptr<Sprite> _sprite; 
         bool _is_alive;
         float _x, _y, _w, _h, _angle, _speed;
         SDL_FRect _hitbox;

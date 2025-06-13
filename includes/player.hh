@@ -27,5 +27,5 @@ class Player {
     private:
         SDL_Texture* _texture;
         SDL_FRect _hitbox;
-        Sprite *_sprite; 
+        std::unique_ptr<Sprite> _sprite; 
 };

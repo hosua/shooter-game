@@ -2,32 +2,42 @@
 #include <iostream>
 
 #include "enemy.hh"
+#include "SDL_render.h"
 #include "globals.hh"
 #include "graphics.hh"
 
-constexpr float DIMS = 25.f;
+
+namespace gfx = Graphics;
+namespace global_vars = Global::Vars;
+constexpr int EW = 48, EH = 60;
 
 Enemy::Enemy(float x, float y): _x(x), _y(y), 
-    _w(DIMS), _h(DIMS),
+    _w(EW), _h(EH),
     _angle(0), _speed(0),
     _is_alive(true), 
-    _hitbox({ x, y, DIMS, DIMS }) 
-{}
+    _hitbox({ x, y, 32, 32 }) 
+{
+    _texture = gfx::load_texture("assets/spaceship/ship_5_sheet.png");
+    _sprite = std::make_unique<Sprite>(_texture, EW, EH, 2, 10.f);
+}
 
 Enemy::~Enemy() {}
 
 void Enemy::render(float dt) const {
-    SDL_SetRenderDrawColor(Global::renderer, 128, 128, 128, 255);
     SDL_FRect world_rect = { _x, _y, _w, _h };
     const auto& [ex, ey] = get_rel_pos(world_rect);
-    SDL_FRect rel_rect = { ex, ey, _w, _h };
-    SDL_RenderFillRectF(Global::renderer, &rel_rect);
+    _sprite->render(ex, ey, _angle);
+    _sprite->update(dt);
+    if (global_vars::debug){
+        SDL_SetRenderDrawColor(Global::renderer, 0, 255, 68, 255);
+        SDL_RenderDrawRectF(Global::renderer, &_hitbox);
+    }
 }
 
 void Enemy::update(float dt) {
     SDL_FRect world_rect = { _x, _y, _w, _h };
     const auto& [ex, ey] = get_rel_pos(world_rect);
-    _hitbox = { ex, ey, _hitbox.w, _hitbox.h };
+    _hitbox = { ex + 8, ey + 12, _hitbox.w, _hitbox.h };
 }
 
 bool Enemy::check_collision_with_bullet(const Bullet& bullet) {
@@ -37,7 +47,6 @@ bool Enemy::check_collision_with_bullet(const Bullet& bullet) {
 }
 
 // Factory
-
 
 EnemyFactory::EnemyFactory(){}
 EnemyFactory::~EnemyFactory(){}
