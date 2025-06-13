@@ -39,7 +39,7 @@ void run_all_collision_checks(Player& player, EnemyFactory& enemy_factory, Bulle
         for (const std::unique_ptr<Enemy>& enemy : enemy_factory._pool) {
             SDL_FRect enemy_world_rect = { enemy->_x, enemy->_y, enemy->_w, enemy->_h };
             const auto& [ex, ey] = get_rel_pos(enemy_world_rect);
-            if (check_collision(bullet->_hitbox, enemy->_hitbox)) {
+            if (bullet->_is_player_bullet && check_collision(bullet->_hitbox, enemy->_hitbox)) {
                 bullet->_is_destroyed = true;
                 enemy->_is_alive = false; 
                 explosion_factory.spawn(enemy->_x, enemy->_y);
@@ -262,7 +262,7 @@ int main () {
             // game logic
             explosion_factory.update_all(dt);
             bullet_factory.update_all(dt);
-            enemy_factory.update_all(dt);
+            enemy_factory.update_all(dt, bullet_factory);
             
             run_all_collision_checks(player, enemy_factory, bullet_factory, explosion_factory);
 

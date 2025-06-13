@@ -12,7 +12,9 @@ namespace global_vars = Global::Vars;
 constexpr int BW = 48, BH = 48;
 
 Bullet::Bullet(float x, float y, float angle, float speed, bool is_player_bullet): 
-    _x(x), _y(y), _angle(angle), _speed(speed), _hitbox({x, y, 10 ,10}),
+    _x(x), _y(y), _angle(angle), _speed(speed), 
+    _is_player_bullet(is_player_bullet),
+    _hitbox({x, y, 10 ,10}),
     _is_destroyed(false) {
     _sprite = std::make_unique<Sprite>(gfx::textures["bullet"], BW, BH, 2, 10.f);
 }
