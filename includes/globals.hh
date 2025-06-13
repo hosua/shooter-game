@@ -1,14 +1,12 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include "text.hh"
 
 namespace Global {
-    extern TextRenderer text_renderer;
     extern SDL_Window* window;
     extern SDL_Renderer* renderer;
     extern SDL_FRect letter_box_rect;
-    extern SDL_FRect camera; // this should probably go into its own class at some point
+    extern SDL_FRect camera; 
 
     namespace Vars {
         extern bool paused;

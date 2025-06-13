@@ -13,14 +13,11 @@ namespace gfx = Graphics;
 
 Explosion::Explosion(float x, float y): 
     _x(x), _y(y) {
-    _texture = gfx::load_texture("assets/spaceship/Space Ships Explosion.png");
-    _sprite = new Sprite(_texture, 48, 48, 6, 10.f);
+    _sprite = new Sprite(gfx::textures["explosion"], 48, 48, 6, 10.f);
     Sounds::play("explosion");
 }
 
-Explosion::~Explosion() {
-    SDL_DestroyTexture(_texture);
-}
+Explosion::~Explosion() {}
 
 void Explosion::update(float dt) {
     --_ttl;

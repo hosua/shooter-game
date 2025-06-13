@@ -17,13 +17,12 @@ enum EnemyType {
 
 class Enemy {
     public:
-        Enemy(float x, float y);
+        Enemy(float x, float y, float angle = 0, float speed = 0);
         ~Enemy();
         void render(float dt) const;
         void update(float dt);
         bool check_collision_with_bullet(const Bullet& bullet);
     private:
-        SDL_Texture* _texture;
         std::unique_ptr<Sprite> _sprite; 
         bool _is_alive;
         float _x, _y, _w, _h, _angle, _speed;

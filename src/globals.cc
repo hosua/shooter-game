@@ -15,7 +15,6 @@ SDL_FPoint global_vars::player_pos = { 0, 0 };
 SDL_Window* Global::window;
 SDL_Renderer* Global::renderer;
 SDL_FRect Global::letter_box_rect;
-TextRenderer Global::text_renderer;
 SDL_FRect Global::camera = { 0, 0, 0, 0 };
 
 static std::random_device rd;  

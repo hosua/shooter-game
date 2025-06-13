@@ -69,7 +69,7 @@ int main () {
     }
 
     Global::window = SDL_CreateWindow(
-        "Tilemap",                    
+        "Shooter Game",                    
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,           
         gfx::VIRTUAL_WIDTH, gfx::VIRTUAL_HEIGHT,                          
         SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE                  
@@ -96,7 +96,11 @@ int main () {
         return 1;
     }
 
-    Global::text_renderer.load_font("pixel_emulator", "assets/ttf/PixelEmulator-xq08.ttf");
+    gfx::text_renderer.load_font("pixel_emulator", "assets/ttf/PixelEmulator-xq08.ttf");
+    gfx::load_texture("player", "assets/spaceship/ship_6_sheet.png");
+    gfx::load_texture("enemy", "assets/spaceship/ship_5_sheet.png");
+    gfx::load_texture("explosion", "assets/spaceship/Space Ships Explosion.png");
+    gfx::load_texture("bullet", "assets/spaceship/shot.png");
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();              
@@ -151,6 +155,9 @@ int main () {
                     break;
                     case SDLK_SPACE:
                         player.shoot(bullet_factory);
+                    break;
+                    case SDLK_F1:
+                        global_vars::spawn_mode = !global_vars::spawn_mode;
                     break;
                     case SDLK_GRAVE:
                         global_vars::debug = !global_vars::debug;
@@ -223,7 +230,8 @@ int main () {
                 ImGui::Checkbox("Mute Volume", &global_vars::volume_muted);
 
                 ImGui::NewLine();
-                ImGui::Checkbox("Spawn Mode", &global_vars::spawn_mode);
+                ImGui::Checkbox("Spawn Mode (F1)", &global_vars::spawn_mode);
+                ImGui::Checkbox("Debug Mode (`)", &global_vars::debug);
             ImGui::End();
         }
         int drawable_w, drawable_h;
@@ -266,8 +274,8 @@ int main () {
         /* ======= End drawing logic ======= */
         /* ======= Begin UI drawing logic ======= */
         if (global_vars::paused) {
-            auto [paused_tw, paused_th] = Global::text_renderer.get_text_size("pixel_emulator", "paused", 25);
-            Global::text_renderer.render_text("pixel_emulator", "Paused", 
+            auto [paused_tw, paused_th] = gfx::text_renderer.get_text_size("pixel_emulator", "paused", 25);
+            gfx::text_renderer.render_text("pixel_emulator", "Paused", 
                                             ((gfx::VIRTUAL_WIDTH / 2) - (paused_tw / 2)), 
                                             ((gfx::VIRTUAL_HEIGHT / 2) - (paused_th / 2)), 
                                             { 255, 255, 255, 255 },

@@ -13,14 +13,13 @@ namespace gfx = Graphics;
 namespace global_vars = Global::Vars;
 constexpr int EW = 48, EH = 60;
 
-Enemy::Enemy(float x, float y): _x(x), _y(y), 
+Enemy::Enemy(float x, float y, float angle, float speed): _x(x), _y(y), 
     _w(EW), _h(EH),
-    _angle(0), _speed(0),
+    _angle(angle), _speed(speed),
     _is_alive(true), 
     _hitbox({ x, y, 32, 32 }) 
 {
-    _texture = gfx::load_texture("assets/spaceship/ship_5_sheet.png");
-    _sprite = std::make_unique<Sprite>(_texture, EW, EH, 2, 10.f);
+    _sprite = std::make_unique<Sprite>(gfx::textures["enemy"], EW, EH, 2, 10.f);
 }
 
 Enemy::~Enemy() {}

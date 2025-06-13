@@ -3,8 +3,12 @@
 #include <iostream>
 #include "graphics.hh"
 #include "globals.hh"
+#include "text.hh"
 
 namespace Graphics {
+    TextRenderer text_renderer;
+
+    std::unordered_map<std::string, SDL_Texture*> textures;
 
     float window_aspect_ratio;
     float target_aspect_ratio;
@@ -45,13 +49,14 @@ namespace Graphics {
         }
     }
 
-    SDL_Texture* load_texture(const std::string& file) {
+    SDL_Texture* load_texture(const std::string& key, const std::string& file) {
         SDL_Surface* surface = IMG_Load(file.c_str());
         if (!surface) {
             std::cerr << "IMG_Load failed: " << IMG_GetError() << std::endl;
             return nullptr;
         }
         SDL_Texture* texture = SDL_CreateTextureFromSurface(Global::renderer, surface);
+        textures[key] = texture;
         SDL_FreeSurface(surface);
         return texture;
     }

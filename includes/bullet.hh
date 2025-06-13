@@ -22,7 +22,6 @@ class Bullet {
         float _x, _y, _angle, _speed;
         bool _is_player_bullet, _is_destroyed;
         SDL_FRect _hitbox;
-        SDL_Texture *_texture;
         std::unique_ptr<Sprite> _sprite;
         std::pair<float,float> get_rel_pos() const; 
         friend class Enemy;

@@ -14,14 +14,11 @@ namespace global_vars = Global::Vars;
 constexpr int PW = 48, PH = 60;
 
 Player::Player(float x, float y): _x(x), _y(y), _w(PW), _h(PH) {
-    _texture = gfx::load_texture("assets/spaceship/ship_6_sheet.png");
-    _sprite = std::make_unique<Sprite>(_texture, PW, PH, 2, 10.f);
+    _sprite = std::make_unique<Sprite>(gfx::textures["player"], PW, PH, 2, 10.f);
     _hitbox = { 0, 0, 30, 30 };
 }
 
-Player::~Player() {
-    SDL_DestroyTexture(_texture);
-}
+Player::~Player() {}
 
 void Player::render(float dt) const {
     const float distance = 29.0f;

@@ -11,17 +11,13 @@ namespace global_vars = Global::Vars;
 
 constexpr int BW = 48, BH = 48;
 
-// TODO: Reuse loaded textures
 Bullet::Bullet(float x, float y, float angle, float speed, bool is_player_bullet): 
     _x(x), _y(y), _angle(angle), _speed(speed), _hitbox({x, y, 10 ,10}),
     _is_destroyed(false) {
-    _texture = gfx::load_texture("assets/spaceship/shot.png");
-    _sprite = std::make_unique<Sprite>(_texture, BW, BH, 2, 10.f);
+    _sprite = std::make_unique<Sprite>(gfx::textures["bullet"], BW, BH, 2, 10.f);
 }
 
-Bullet::~Bullet(){
-    SDL_DestroyTexture(_texture);
-}
+Bullet::~Bullet(){}
             
 void Bullet::render(float dt) const {
     _sprite->update(dt); 

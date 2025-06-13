@@ -17,7 +17,6 @@ class Player {
             _bullet_speed = 500.f;
 
         Player(float x, float y);
-        Player(float x, float y, SDL_Texture* texture);
         ~Player();
         void move(int dir_x, int dir_y, float dt);
         void render(float dt) const;
@@ -25,7 +24,6 @@ class Player {
         friend void run_all_collision_checks(Player& player, EnemyFactory& enemy_factory, 
                                              BulletFactory& bullet_factory, ExplosionFactory& explosion_factory);
     private:
-        SDL_Texture* _texture;
         SDL_FRect _hitbox;
         std::unique_ptr<Sprite> _sprite; 
 };

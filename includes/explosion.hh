@@ -13,8 +13,7 @@ class Explosion {
     private:
         float _x, _y;
         int _ttl = 90;
-        SDL_Texture* _texture;
-             Sprite* _sprite;
+        Sprite* _sprite;
         friend class ExplosionFactory;
 };
 

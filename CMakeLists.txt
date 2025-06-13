@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Find SDL2 and related libraries using pkg-config
 find_package(PkgConfig REQUIRED)
 
 pkg_check_modules(SDL2 REQUIRED sdl2)
@@ -14,21 +13,17 @@ pkg_check_modules(SDL2_IMAGE REQUIRED SDL2_image)
 pkg_check_modules(SDL2_TTF REQUIRED SDL2_ttf)
 pkg_check_modules(SDL2_NET REQUIRED SDL2_net)
 
-# Add ImGui source files
 file(GLOB IMGUI_SRC
     external/imgui/*.cpp
     external/imgui/backends/imgui_impl_sdl2.cpp
     external/imgui/backends/imgui_impl_sdlrenderer2.cpp
 )
 
-# Add ImGui headers (optional for IDEs)
 file(GLOB IMGUI_HEADERS
     external/imgui/*.h
     external/imgui/backends/*.h
 )
 
-
-# Local include folder and SDL includes
 include_directories(
     includes
     ${SDL2_INCLUDE_DIRS}
@@ -40,10 +35,8 @@ include_directories(
     external/imgui/backends
 )
 
-# Find all .cc source files in src/
 file(GLOB_RECURSE SRC_FILES src/*.cc)
 
-# Combine all SDL2-related libraries
 set(ALL_SDL_LIBS
     ${SDL2_LIBRARIES}
     ${SDL2_MIXER_LIBRARIES}
@@ -52,10 +45,8 @@ set(ALL_SDL_LIBS
     ${SDL2_NET_LIBRARIES}
 )
 
-# Build executable
 add_executable(${PROJECT_NAME} ${SRC_FILES} ${IMGUI_SRC})
 
-# Properly apply all SDL2 pkg-config settings
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${SDL2_INCLUDE_DIRS}
     ${SDL2_MIXER_INCLUDE_DIRS}
@@ -88,10 +79,6 @@ target_link_libraries(${PROJECT_NAME}
     ${SDL2_NET_LIBRARIES}
 )
 
-
-# Link against SDL2 and its extensions
-# target_link_libraries(${PROJECT_NAME} ${ALL_SDL_LIBS})
-
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -100,7 +87,6 @@ add_custom_command(
     COMMENT "Copying compile_commands.json to project root"
 )
 
-# Copy assets folder to the build directory (next to the binary)
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
