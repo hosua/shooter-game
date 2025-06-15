@@ -1,6 +1,7 @@
 #include "bullet.hh"
 #include "graphics.hh"
 #include "globals.hh"
+#include "debug.hh"
 
 #include <algorithm>
 #include <iostream>
@@ -27,7 +28,7 @@ void Bullet::render(float dt) const {
     const auto& [bx, by] = get_rel_pos();
     _sprite->render(bx, by, _angle);
 
-    if (global_vars::debug) {
+    if (Debug::enabled) {
         SDL_SetRenderDrawColor(Global::renderer, 0, 255, 68, 255);
         SDL_RenderDrawRectF(Global::renderer, &_hitbox);
     }

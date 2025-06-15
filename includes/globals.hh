@@ -12,7 +12,6 @@ namespace Global {
         extern bool paused;
         extern float volume;
         extern bool volume_muted;
-        extern bool debug;
         extern bool spawn_mode;
         extern SDL_FPoint player_pos;
     }

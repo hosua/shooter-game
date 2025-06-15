@@ -6,7 +6,6 @@
 namespace global_vars = Global::Vars;
 
 bool global_vars::paused = false;
-bool global_vars::debug = true;
 float global_vars::volume = MIX_MAX_VOLUME;
 bool global_vars::volume_muted = false;
 bool global_vars::spawn_mode = false;

@@ -8,6 +8,7 @@
 #include "input.hh"
 #include "player.hh"
 #include "sounds.hh"
+#include "debug.hh"
 
 namespace gfx = Graphics;
 namespace global_vars = Global::Vars;
@@ -27,7 +28,7 @@ void Player::render(float dt) const {
     _sprite->render(px, py, _angle);
     _sprite->update(dt);
 
-    if (global_vars::debug) {
+    if (Debug::enabled) {
         SDL_SetRenderDrawColor(Global::renderer, 0, 255, 68, 255);
         SDL_RenderDrawRectF(Global::renderer, &_hitbox);
     }

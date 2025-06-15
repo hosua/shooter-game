@@ -7,6 +7,7 @@
 #include "globals.hh"
 #include "graphics.hh"
 #include "sprite.hh"
+#include "debug.hh"
 
 
 namespace gfx = Graphics;
@@ -29,7 +30,7 @@ void Enemy::render(float dt) const {
     const auto& [ex, ey] = get_rel_pos(world_rect);
     _sprite->render(ex, ey, _angle);
     _sprite->update(dt);
-    if (global_vars::debug){
+    if (Debug::enabled){
         SDL_SetRenderDrawColor(Global::renderer, 0, 255, 68, 255);
         SDL_RenderDrawRectF(Global::renderer, &_hitbox);
     }
